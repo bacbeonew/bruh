@@ -1,1 +1,6 @@
-
+MainTab:AddButton({
+    Name = "Chạy script của tôi",
+    Callback = function()
+        loadstring(game:HttpGet("CÁI_LINK_RAW_ÔNG_VỪA_TẠO"))()
+    end    
+})
