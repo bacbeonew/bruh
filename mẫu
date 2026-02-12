@@ -1,6 +1,79 @@
-MainTab:AddButton({
-    Name = "Chạy script của tôi",
-    Callback = function()
-        loadstring(game:HttpGet("CÁI_LINK_RAW_ÔNG_VỪA_TẠO"))()
-    end    
+--[[
+    BACBEO HUB - VERSION 3.0 (ULTIMATE CUSTOM)
+    Giao diện: Orion Library (Modern Hacker Style)
+]]
+
+-- 1. Tối ưu hóa bộ nhớ cho Roblox Beta
+task.spawn(function()
+    while task.wait(60) do collectgarbage("collect") end
+end)
+
+-- 2. Tải Library an toàn (Chống lỗi index nil giống ảnh image_fe7a1a)
+local OrionLib
+local success = pcall(function()
+    OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
+end)
+
+if not success or not OrionLib then
+    -- Link dự phòng từ kho lưu trữ của bloodball
+    OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/orion'))()
+end
+
+-- 3. Tạo Cửa sổ chính
+local Window = OrionLib:MakeWindow({
+    Name = "BacBeo HUB (Self-Custom)", 
+    HidePremium = false, 
+    SaveConfig = true, 
+    ConfigFolder = "BacBeoConfig",
+    IntroText = "Initializing System..." -- Chữ hiện lúc khởi động nhìn rất 'hack'
 })
+
+-- 4. Tab chứa các Script của ông
+local ScriptTab = Window:MakeTab({
+	Name = "My Scripts",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+-- Hướng dẫn: Để thêm script mới, ông chỉ cần copy đoạn 'AddButton' dưới đây
+ScriptTab:AddButton({
+	Name = "Load Foxname Hub",
+	Callback = function()
+        -- Dán link loadstring script ông muốn vào đây
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/caomod2077/Script/refs/heads/main/FoxnameHub.lua"))()
+  	end    
+})
+
+-- CHỖ ĐỂ ÔNG TỰ THÊM SCRIPT TIẾP THEO:
+-- [Dán thêm nút bấm ở đây]
+
+
+-- 5. Tab Cài đặt & Font (Ép Font Code Hacker)
+local SettingsTab = Window:MakeTab({
+	Name = "Settings",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+SettingsTab:AddButton({
+	Name = "Kích hoạt Font Hacker",
+	Callback = function()
+        -- Ép toàn bộ giao diện về Font Code
+        for _, v in pairs(game:GetService("CoreGui"):GetDescendants()) do
+            if v:IsA("TextLabel") or v:IsA("TextButton") or v:IsA("TextBox") then
+                v.Font = Enum.Font.Code
+            end
+        end
+        OrionLib:MakeNotification({Name = "System", Content = "Font Hacker Activated!", Time = 3})
+  	end    
+})
+
+SettingsTab:AddButton({
+	Name = "Xóa Menu (Destroy Hub)",
+	Callback = function()
+        OrionLib:Destroy()
+  	end    
+})
+
+-- Khởi tạo Menu
+OrionLib:Init()
